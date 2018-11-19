@@ -457,25 +457,35 @@ func getRemoteAddr(req *http.Request) (s string) {
 	return
 }
 
-func (p *OAuthProxy) ServeHTTP(rw http.ResponseWriter, req *http.Request) {
+func (p *OAuthProxy) ServeHTTP(rw http.ResponseWriter, req *http.Request) {	
+	log.Printf("Ok, ServeHTTP for %+v\n", req)
 	switch path := req.URL.Path; {
 	case path == p.RobotsPath:
+		log.Println("Ok, ServeHTTP for RobotsTxt\n")
 		p.RobotsTxt(rw)
 	case path == p.PingPath:
+		log.Println("Ok, ServeHTTP for PingPage\n")
 		p.PingPage(rw)
 	case p.IsWhitelistedRequest(req):
+		log.Println("Ok, ServeHTTP for ServeHTTP\n")
 		p.serveMux.ServeHTTP(rw, req)
 	case path == p.SignInPath:
+		log.Println("Ok, ServeHTTP for SignIn\n")
 		p.SignIn(rw, req)
 	case path == p.SignOutPath:
+		log.Println("Ok, ServeHTTP for SignOut\n")
 		p.SignOut(rw, req)
 	case path == p.OAuthStartPath:
+		log.Println("Ok, ServeHTTP for OAuthStart\n")
 		p.OAuthStart(rw, req)
 	case path == p.OAuthCallbackPath:
+		log.Println("Ok, ServeHTTP for OAuthCallback\n")
 		p.OAuthCallback(rw, req)
 	case path == p.AuthOnlyPath:
+		log.Println("Ok, ServeHTTP for AuthenticateOnly\n")
 		p.AuthenticateOnly(rw, req)
 	default:
+		log.Println("Ok, ServeHTTP for Proxy\n")
 		p.Proxy(rw, req)
 	}
 }
