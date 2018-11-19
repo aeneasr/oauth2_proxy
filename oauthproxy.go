@@ -435,6 +435,7 @@ func (p *OAuthProxy) GetRedirect(req *http.Request) (redirect string, err error)
 
 func (p *OAuthProxy) IsWhitelistedRequest(req *http.Request) (ok bool) {
 	isPreflightRequestAllowed := p.skipAuthPreflight && req.Method == "OPTIONS"
+	log.Printf("Ok, executing IsWhitelistedRequest for %s - %v - %v\n", req.Method, isPreflightRequestAllowed, p.IsWhitelistedPath(req.URL.Path))
 	return isPreflightRequestAllowed || p.IsWhitelistedPath(req.URL.Path)
 }
 
