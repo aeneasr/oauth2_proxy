@@ -253,7 +253,7 @@ func (p *GitHubProvider) GetEmailAddress(s *SessionState) (string, error) {
 
 func (p *GitHubProvider) GetUserName(s *SessionState) (string, error) {
 	var user struct {
-		ID    int64 `json:"id"`
+		ID    int64  `json:"id"`
 		Login string `json:"login"`
 		Email string `json:"email"`
 	}
@@ -292,5 +292,5 @@ func (p *GitHubProvider) GetUserName(s *SessionState) (string, error) {
 		return "", fmt.Errorf("%s unmarshaling %s", err, body)
 	}
 
-	return fmt.Sprintf("%d|%s", user.ID, user.Login), nil
+	return fmt.Sprintf("%d/%s", user.ID, user.Login), nil
 }
